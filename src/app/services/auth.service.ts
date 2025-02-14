@@ -43,12 +43,8 @@ export class AuthService {
     return false;
   }
 
-  getCurrUser(): Observable<User> {
-    const authToken = localStorage.getItem('authToken');
-    console.log(authToken);
-    
-    let httpHeaders = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
-    return this.httpClient.get('https://api.escuelajs.co/api/v1/auth/profile',  { headers: httpHeaders }) as Observable<User>;
+  getCurrUser(): Observable<User> {  
+    return this.httpClient.get('https://api.escuelajs.co/api/v1/auth/profile') as Observable<User>;
   }
 
 

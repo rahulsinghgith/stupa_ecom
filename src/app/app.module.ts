@@ -17,8 +17,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HeaderComponent } from './core/header/header.component';
+import { AuthInterceptorService } from './interceptors/http-auth.interceptor';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { HeaderComponent } from './core/header/header.component';
     ProductListComponent,
     ProductDetailsComponent,
     CartComponent, 
-    LoginComponent, HeaderComponent
+    LoginComponent, HeaderComponent, CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,13 @@ import { HeaderComponent } from './core/header/header.component';
     FormsModule,
   ],
   providers: [
-    provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi())
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass : AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

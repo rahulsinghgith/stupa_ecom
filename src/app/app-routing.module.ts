@@ -5,6 +5,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { CartComponent } from './components/cart/cart.component';
 import { AuthGuard } from './services/auth.guard';
 import { LoginComponent } from './components/login/login.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: '', component: ProductListComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       { path: 'list/:id', component: ProductDetailsComponent ,canActivate: [AuthGuard]},
       { path: 'cart', component: CartComponent ,canActivate: [AuthGuard] },
+      { path: 'checkout', component: CheckoutComponent ,canActivate: [AuthGuard] },
     ]
   },
   { path: '**', redirectTo: '/products' }

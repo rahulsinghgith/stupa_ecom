@@ -40,7 +40,6 @@ export class CartComponent {
   }
 
 
-  // Update product quantity in cart
   updateQuantity(productId: number, quantity: number, op: string) {
     if (quantity > 0) {
       this.cartQuantityMap.set(productId, quantity);
@@ -63,11 +62,13 @@ export class CartComponent {
   }
 
   calTotalPrice() { 
-    console.log(     this.cartService.getCartData(this.currUser)  );
- 
+    //console.log(     this.cartService.getCartData(this.currUser)  ); 
     return this.cartService.getCartData(this.currUser).map(data =>  data.price).reduce((a,b) => a+b,0);
   }
-
+  orderCheckout(){
+    this.cartService.checkoutCart(this.currUser);
+    this.router.navigateByUrl("products/checkout");
+  }
 
 }
 
