@@ -27,6 +27,10 @@
         <!-- Logout link -->
         <a (click)="logOut()" class="hover:underline cursor-pointer">Logout</a>
       </div>
+      <div *ngIf="!(isAuthenticated | async)" class="flex items-center">
+        <!-- Sign Up link -->
+        <a routerLink="/signUp" class="hover:underline cursor-pointer">SignUp</a>
+      </div>
     </div>
   </div>
 </header>

@@ -21,6 +21,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { HeaderComponent } from './core/header/header.component';
 import { AuthInterceptorService } from './interceptors/http-auth.interceptor';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     ProductListComponent,
     ProductDetailsComponent,
     CartComponent, 
-    LoginComponent, HeaderComponent, CheckoutComponent
+    LoginComponent, HeaderComponent, CheckoutComponent, SignUpComponent
   ],
   imports: [
     BrowserModule,

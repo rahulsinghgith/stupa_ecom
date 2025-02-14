@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
+
   authenticatedSubject$ = new BehaviorSubject(this.isAuthenticated());
   currentUserSubject$ = new BehaviorSubject({});
   
@@ -47,8 +48,9 @@ export class AuthService {
     return this.httpClient.get('https://api.escuelajs.co/api/v1/auth/profile') as Observable<User>;
   }
 
-
-  
+  createUser(value: any) {
+    return this.httpClient.post('https://api.escuelajs.co/api/v1/users/',value);
+  }
 
   logOut() {
     localStorage.removeItem('authToken');
