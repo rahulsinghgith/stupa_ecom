@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a simple e-commerce website built using **Angular**. The application allows users to browse products, view product details, add products to the shopping cart, and complete the checkout process. The app implements modern front-end techniques such as **dependency injection**, **HTTP interceptors**, **reactive forms** with form arrays, **pagination**, and **state management**.
+This is a simple e-commerce website built using **Angular(19)**. The application allows users to browse products, view product details, add products to the shopping cart, and complete the checkout process. The app implements modern front-end techniques such as **dependency injection**, **HTTP interceptors**, **reactive forms** with form arrays, **pagination**, and **state management**.
 
 ### Key Features
 1. **Product Listing Page:**
