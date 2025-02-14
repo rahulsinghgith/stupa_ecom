@@ -1,0 +1,31 @@
+<div *ngFor="let item of cartQuantityMap | keyvalue">
+  <div class="flex border-b p-2">
+    <div class="flex-grow">
+      <p class="mr-5">{{ (getProduct(item.key))?.title }}</p>
+      <p class="font-extrabold">Quantity: {{ item.value }} | Price: {{ getProduct(item.key)?.price }}</p>
+    </div>
+
+    <div class="flex space-x-2">
+      <!-- Add Quantity Button -->
+      <button class="mr-5 p-2 rounded-md bg-blue-600 text-white"
+        (click)="updateQuantity(item.key, item.value + 1,'add')" style="cursor: pointer;">
+        Add Quantity
+      </button>
+
+      <!-- Remove Quantity Button (Disables if Quantity <= 1) -->
+      <button class="mr-5 p-2 rounded-md bg-red-600 text-white"
+        (click)="updateQuantity(item.key, item.value - 1,'remove')" [disabled]="item.value <= 1"
+        style="cursor: pointer;">
+        Remove Quantity
+      </button>
+
+      <!-- Remove Product Button -->
+      <button class="p-2 rounded-md bg-red-900 text-white" (click)="removeFromCart(item.key)" style="cursor: pointer;">
+        Remove Product
+      </button>
+    </div>
+  </div>
+</div>
+<div class="total price mt-5">
+  <span class="font-bold"> Total Price : {{ calTotalPrice() | currency }}</span>
+</div>

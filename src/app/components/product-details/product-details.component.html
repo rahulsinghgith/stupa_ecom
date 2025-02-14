@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="product-card">
+    <h2 class="product-title">{{ product.title }}</h2>
+    <p class="product-description">{{ product.description }}</p>
+    <p class="product-price">${{ product.price }}</p>
+
+    <div class="image-container">
+      <ng-container *ngFor="let img of imageUrls; let i = index">
+        <div *ngIf="i === currentIndex" class="image-wrapper">
+          <div class="image-border">
+            <img [src]="img" class="product-image" />
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Previous and Next buttons -->
+      <button (click)="prevImage()" class="nav-button left">←</button>
+      <button (click)="nextImage()" class="nav-button right">→</button>
+    </div>
+
+    <!-- Dots Navigation -->
+    <div class="dots-container">
+      <button *ngFor="let img of imageUrls; let i = index" 
+        (click)="currentIndex = i" 
+        class="dot" 
+        [ngClass]="{'active': currentIndex === i}">
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class=" m-4 p-4">
+    <div class="filters">
+        <div class="flex flex-row space-x-4 items-start">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Search</mat-label>
+                <input matInput [(ngModel)]="searchQuery" (keyup)="applyFilter()">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Category</mat-label>
+                <mat-select [(ngModel)]="selectedCategory" (selectionChange)="filterByCategory()">
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                        {{ category }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Max Price</mat-label>
+                <input matInput type="number" [(ngModel)]="priceRange" (change)="filterByPrice()">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="mat-table">
+        <table mat-table [dataSource]="productData" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                <td mat-cell *matCellDef="let product"> {{ product.title }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef> Category </th>
+                <td mat-cell *matCellDef="let product"> {{ product.category.name }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let product"> ${{ product.price }} </td>
+            </ng-container>
+            <!-- Card Button Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let product">
+                    <button (click)="addToCart(product)" [routerLink]="['cart']" mat-raised-button style="cursor: pointer; padding: 8px; border-radius: 10px; background-color: #1E40AF; color: white;">
+                        Add to Cart
+                    </button>
+                      
+                      
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="cursor-pointer hover:bg-amber-500"
+                [routerLink]="['list',row?.id]">
+            </tr>
+        </table>
+
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+</div>
