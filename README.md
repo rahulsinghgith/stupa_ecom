@@ -25,6 +25,12 @@ node -v
 npm -v
 ```
 
+### Intsall angular cli
+```
+npm install -g @angular/cli@19.1.7
+ng version
+```
+
 
 ### Key Features
 1. **Product Listing Page:**
