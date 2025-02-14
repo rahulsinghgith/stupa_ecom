@@ -1,59 +1,41 @@
-# StupaEcom
+# E-Commerce Website - Angular SPA
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## Overview
 
-## Development server
+This is a simple e-commerce website built using **Angular**. The application allows users to browse products, view product details, add products to the shopping cart, and complete the checkout process. The app implements modern front-end techniques such as **dependency injection**, **HTTP interceptors**, **reactive forms** with form arrays, **pagination**, and **state management**.
 
-To start a local development server, run:
+### Key Features
+1. **Product Listing Page:**
+   - Displays a list of products with images, names, and prices.
+   - Sorting functionality by price.
+   - Filtering by category, title, and price range.
+   - Pagination to manage the product list.
+   
+2. **Product Detail Page:**
+   - Displays detailed product information including images, descriptions, and price.
+   - "Add to Cart" functionality.
+   
+3. **Shopping Cart:**
+   - Display products added to the cart, with quantities and total price.
+   - Update quantity and remove items from the cart.
+   - Cart state persists across page reloads using **localStorage**.
+   
+4. **User Authentication:**
+   - Login functionality using **JWT authentication**.
+   - Protected checkout process that requires users to be authenticated.
+   - HTTP interceptor to attach authentication token to outgoing requests.
+   - User creation and check for existing users via the API.
 
+## Installation
+
+### 1. Clone the repository
 ```bash
-ng serve
+git clone https://github.com/rahulsinghgith/stupa_ecom.git
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Hosting
+Hosted at Versal : https://stupa-ecom.vercel.app/products
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
