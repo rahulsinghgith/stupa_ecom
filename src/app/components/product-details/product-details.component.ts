@@ -31,18 +31,15 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(res => {
       this.product = res;
       this.imageUrls = JSON.parse(res.images.toString());
-      console.log(this.imageUrls);
       
     })
     
   }
 
-  // Navigate to the next image
   nextImage(): void {
     this.currentIndex = (this.currentIndex + 1) % this.imageUrls.length;
   }
 
-  // Navigate to the previous image
   prevImage(): void {
     this.currentIndex = (this.currentIndex - 1 + this.imageUrls.length) % this.imageUrls.length;
   }

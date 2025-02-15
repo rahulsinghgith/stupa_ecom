@@ -17,15 +17,16 @@ export class CartComponent {
   cartData: Product[] = [];
   cartQuantityMap: Map<number, number> = new Map();
   currUser!: User;
-  
+  showLoader:boolean = false;
   constructor(private authService: AuthService, private productService: ProductsService, private router: Router, private cartService: CartService) { }
 
   ngOnInit() {
+    this.showLoader = true;
     this.authService.getCurrUser().subscribe((data) => {
       this.currUser = data;
       this.cartData = this.cartService.getCartData(this.currUser);
       this.initializeCartQuantityMap();
-      console.log(this.cartQuantityMap);
+      this.showLoader = false;
     });
 
 
@@ -62,7 +63,6 @@ export class CartComponent {
   }
 
   calTotalPrice() { 
-    //console.log(     this.cartService.getCartData(this.currUser)  ); 
     return this.cartService.getCartData(this.currUser).map(data =>  data.price).reduce((a,b) => a+b,0);
   }
   orderCheckout(){

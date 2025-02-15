@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  public cartCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   userCartMap: Map<number, Product[]> = new Map();
   constructor() {
     this.loadCartFromLocalStorage();
   }
 
+  getCartCountAsObservable(user: User): Observable<number> {
+    this.getCartData(user);
+    return this.cartCount$.asObservable() as Observable<number>;
+  }
+
   loadCartFromLocalStorage(): void {
     const storedCartData = localStorage.getItem('cart');
-    console.log(storedCartData!);
-
-
     if (storedCartData && Object.entries(storedCartData).length > 2) {
       const cartArray = JSON.parse(storedCartData);
       // Convert the array back to a Map
@@ -25,11 +29,7 @@ export class CartService {
   }
 
   addToCart(product: Product, user?: User) {
-    console.log(user);
-
     const currUserCartproducts: Product[] | undefined = this.userCartMap.get(user?.id!);
-    console.log(currUserCartproducts);
-
     if (currUserCartproducts) {
       currUserCartproducts.push(product);
     } else {
@@ -39,22 +39,22 @@ export class CartService {
     }
     const cartData = Array.from(this.userCartMap.entries());
 
-    console.log(JSON.stringify(this.userCartMap));
+    this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
     localStorage.setItem('cart', JSON.stringify(cartData));
   }
 
   getCartData(user?: User): Product[] {
-    return this.userCartMap.get(user?.id!) || [];
+    const productData: Product[] = this.userCartMap.get(user?.id!) || [];
+    this.cartCount$.next(productData.length);
+    return productData;
   }
 
   removeItemQuantity(productId: number, user?: User) {
-    console.log(productId, user);
-
     let currUserCartproducts: Product[] | undefined = this.userCartMap.get(user?.id!);
     if (currUserCartproducts) {
       currUserCartproducts.splice(currUserCartproducts.findIndex(product => product.id === productId), 1);
       const cartData = Array.from(this.userCartMap.entries());
-      console.log(JSON.stringify(this.userCartMap));
+      this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     };
   }
@@ -65,6 +65,7 @@ export class CartService {
       const itemsAfterRemovalOfProduct: Product[] = currUserCartproducts.filter(product => product.id !== productId);
       this.userCartMap.set(user?.id!, itemsAfterRemovalOfProduct);
       const cartData = Array.from(this.userCartMap.entries());
+      this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     }
 
@@ -75,7 +76,14 @@ export class CartService {
     if (currUserCartproducts) {
       this.userCartMap.set(user?.id!, []);
       const cartData = Array.from(this.userCartMap.entries());
+      this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     }
+  }
+  getCartItemCount() {
+    let totalCount = 0;
+    const cartData = Array.from(this.userCartMap.entries());
+    totalCount = cartData[0][1].length;
+    this.cartCount$.next(totalCount);
   }
 }

@@ -8,22 +8,27 @@
       <nav>
         <ul class="flex space-x-4" style="gap:2rem">
           <li><a routerLink="/products" class="hover:underline">Products</a></li>
-          <li><a [routerLink]="['/products/cart']" class="hover:underline">Cart</a></li>
+          <li class="relative">
+            <a [routerLink]="['/products/cart']" class="hover:underline">
+              Cart
+              <!-- Cart count circle -->
+              <span *ngIf="(isAuthenticated | async)" class="absolute top-[-8px] right-[-20px] bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
+                {{ cartItemCount | async }}
+              </span>
+            </a>
+          </li>
         </ul>
       </nav>
+      
     </div>
 
     <!-- Right side: Profile & Logout -->
     <div class="flex items-center ml-auto">
       <div *ngIf="isAuthenticated | async" class="flex items-center">
         <!-- Profile Image next to the user's name -->
-        <img
-          src="{{ currUser.avatar }}"
-          alt="Profile Image"
-          class="w-8 h-8 rounded-full mr-2"
-        />
+        <img src="{{ currUser.avatar }}" alt="Profile Image" class="w-8 h-8 rounded-full mr-2" />
         <span class="mr-2 font-extrabold pr-1">{{ currUser.name }}</span>
-        
+
         <!-- Logout link -->
         <a (click)="logOut()" class="hover:underline cursor-pointer">Logout</a>
       </div>
