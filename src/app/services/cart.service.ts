@@ -65,7 +65,7 @@ export class CartService {
       const itemsAfterRemovalOfProduct: Product[] = currUserCartproducts.filter(product => product.id !== productId);
       this.userCartMap.set(user?.id!, itemsAfterRemovalOfProduct);
       const cartData = Array.from(this.userCartMap.entries());
-      this.cartCount$.next(currUserCartproducts!?.length);
+      this.cartCount$.next(itemsAfterRemovalOfProduct!?.length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     }
 
