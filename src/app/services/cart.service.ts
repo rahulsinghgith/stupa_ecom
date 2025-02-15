@@ -39,7 +39,7 @@ export class CartService {
     }
     const cartData = Array.from(this.userCartMap.entries());
 
-    this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
+    this.cartCount$.next(currUserCartproducts!?.length);
     localStorage.setItem('cart', JSON.stringify(cartData));
   }
 
@@ -54,7 +54,7 @@ export class CartService {
     if (currUserCartproducts) {
       currUserCartproducts.splice(currUserCartproducts.findIndex(product => product.id === productId), 1);
       const cartData = Array.from(this.userCartMap.entries());
-      this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
+      this.cartCount$.next(currUserCartproducts!?.length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     };
   }
@@ -65,7 +65,7 @@ export class CartService {
       const itemsAfterRemovalOfProduct: Product[] = currUserCartproducts.filter(product => product.id !== productId);
       this.userCartMap.set(user?.id!, itemsAfterRemovalOfProduct);
       const cartData = Array.from(this.userCartMap.entries());
-      this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
+      this.cartCount$.next(currUserCartproducts!?.length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     }
 
@@ -76,7 +76,7 @@ export class CartService {
     if (currUserCartproducts) {
       this.userCartMap.set(user?.id!, []);
       const cartData = Array.from(this.userCartMap.entries());
-      this.cartCount$.next(Array.from(this.userCartMap.entries())[0][1].length);
+      this.cartCount$.next(currUserCartproducts!?.length);
       localStorage.setItem('cart', JSON.stringify(cartData));
     }
   }
